@@ -58,4 +58,10 @@ $(document).ready(function () { //aspetto che il documento sia pronto
             });
         })
     })
+
+    // carosello bootstrap settaggi
+    $('.carousel').carousel({
+        interval: 4000,
+        pause: false
+    })
 });

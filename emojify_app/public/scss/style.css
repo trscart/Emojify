@@ -1,0 +1,45 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+/*nav*/
+.emojify-nav {
+  padding: 5px 30px;
+  background-color: transparent !important;
+  color: white;
+}
+
+.emojify-nav .emojify-nav-item {
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.emojify-nav .emojify-nav-brand {
+  font-weight: 800;
+  font-size: 23px;
+}
+
+/*body*/
+.emojify-bodycontainer {
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+}
+
+.emojify-bodycontainer .emojify-carousel {
+  position: fixed;
+  height: 100vh;
+  z-index: -1;
+}
+
+.emojify-bodycontainer .login {
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.emojify-bodycontainer .login h1 {
+  color: white;
+}
+/*# sourceMappingURL=style.css.map */
