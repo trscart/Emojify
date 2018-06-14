@@ -27,9 +27,9 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                     Authorization: "Bearer " + access_token
                 },
                 success: function (result) { // se la richeista va a buon fine esegui la funzione
-                    let randomNumber = Math.floor(Math.random() * limit); //genero un numero random da 0 a 50
-                    let canzoneRandomId = result.tracks[randomNumber].id //scelgo una canzone random della lista e ne prendo l'id
-                    let nomecanzoneRandom = result.tracks[randomNumber].name //nome della canzone random
+                    let randomNumber = Math.floor(Math.random() * limit); // genero un numero random da 0 a 50
+                    let canzoneRandomId = result.tracks[randomNumber].id // scelgo una canzone random della lista e ne prendo l'id
+                    let nomecanzoneRandom = result.tracks[randomNumber].name // nome della canzone random
 
                     $.ajax({ // chiamata ajax al click del bottone per prendere l'id del dispositivo connesso a spotify
                         url: "https://api.spotify.com/v1/me/player/devices",
