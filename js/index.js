@@ -15,31 +15,47 @@ $(document).ready(function () { //aspetto che il documento sia pronto
         refresh_token = params.refresh_token,
         error = params.error;
 
-    $("#provaBtn").click(function () { //esegui una richesta ajax a spotify al click sul bottone
-        console.log("click")
-        $.ajax({ // chiamata ajax al click del bottone per prendere l'id del dispositivo connesso a spotify
-            url: "https://api.spotify.com/v1/me/player/devices",
-            dataType: "json",
-            headers: {
-                Authorization: "Bearer " + access_token // access token dell'utente
-            },
-            success: function (result) { // se la richeista va a buon fine esegui la funzione
-                console.log("device connessi", result)
-                $.ajax({ // chiamata ajax che riproduce al canzone scelta
-                    url: "https://api.spotify.com/v1/me/player/play",
-                    type: 'PUT',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: '{\"context_uri\":\"spotify:album:5ht7ItJgpBH7W6vJ5BqpPr\",\"offset\":{\"position\":5}}',
-                    headers: {
-                        Authorization: "Bearer " + access_token
-                    },
-                    success: function (result) { // se la richeista va a buon fine esegui la funzione
-                        console.log("traccia in play")
-                    }
-                });
-            }
-        });
+    let emojiMood = ["happy", "sad", "romance"] //creo un oggetto corrispondente al valore di ogni emoji
+    emojiMood.forEach(function (item) {
+        $("#" + item).click(function () {
+            console.log("mood", emojiMood)
+            let limit = 50 //limite lista canzoni
+            $.ajax({ // chiamata ajax che al click sulle emoji ritorna una lista di canzoni corrispondenti al mood della emoji stessa
+                url: "https://api.spotify.com/v1/recommendations?limit=" + limit + "&seed_genres=" + $("#" + item).attr("value"), // url + valore dell'emoji cliccata
+                type: 'GET',
+                headers: {
+                    Authorization: "Bearer " + access_token
+                },
+                success: function (result) { // se la richeista va a buon fine esegui la funzione
+                    console.log(result)
+                    let randomNumber = Math.floor(Math.random() * 50); //genero un numero random da 0 a 50
+                    let canzoneRandomId = result.tracks[randomNumber].id //scelgo una canzone random della lista e ne prendo l'id
 
+                    $.ajax({ // chiamata ajax al click del bottone per prendere l'id del dispositivo connesso a spotify
+                        url: "https://api.spotify.com/v1/me/player/devices",
+                        dataType: "json",
+                        headers: {
+                            Authorization: "Bearer " + access_token // access token dell'utente
+                        },
+                        success: function (result) { // se la richeista va a buon fine esegui la funzione
+                            console.log("device connessi", result)
+                            $.ajax({ // chiamata ajax che riproduce al canzone random
+                                url: "https://api.spotify.com/v1/me/player/play",
+                                type: 'PUT',
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                data: '{\"uris\":[\"spotify:track:' + canzoneRandomId + '\"]}',
+                                headers: {
+                                    Authorization: "Bearer " + access_token
+                                },
+                                success: function (result) { // se la richeista va a buon fine esegui la funzione
+                                    console.log("traccia in play")
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        })
     })
 });
