@@ -46,6 +46,7 @@
 .emojify-bodycontainer {
     height: 100vh;
     background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);
+    overflow: hidden;
     .bg-circle {
         z-index: 0;
         position: fixed;
@@ -114,6 +115,7 @@
         text-align: center;
         .emojify-playicon{
             cursor: pointer;
+            font-size: 35px;
         }
     }
     .emojify-row-grow {
@@ -130,6 +132,10 @@
         h1 {
             color: white;
         }
+        h5{
+            color: white;
+            font-weight: 400;
+        }
     }
 }
 
@@ -137,6 +143,12 @@
     z-index: 1;
     padding: 0px;
     background: rgba($color: #ffffff, $alpha: 0.35);
+    position: relative;
+    bottom: -95px;
+    transition: 0.6s;
+    &:hover{
+        bottom: 0;
+    }
     .emojify-list-item {
         cursor: pointer;
     }

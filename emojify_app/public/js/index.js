@@ -15,6 +15,17 @@ $(document).ready(function () { //aspetto che il documento sia pronto
         refresh_token = params.refresh_token,
         error = params.error;
 
+    $.ajax({ // chiamata ajax che mette in pausa il player quando la pagina viene refreshata
+        url: "https://api.spotify.com/v1/me/player/pause",
+        type: 'PUT',
+        headers: {
+            Authorization: "Bearer " + access_token
+        },
+        success: function () {
+            console.log("pause")
+        }
+    })
+
     let emojiMood = ["happy", "sad", "romance"] //creo un oggetto corrispondente al valore di ogni emoji
     emojiMood.forEach(function (item) {
         $("#" + item).click(function () {
@@ -27,9 +38,11 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                     Authorization: "Bearer " + access_token
                 },
                 success: function (result) { // se la richeista va a buon fine esegui la funzione
+                    console.log(result)
                     let randomNumber = Math.floor(Math.random() * limit); // genero un numero random da 0 a 50
                     let canzoneRandomId = result.tracks[randomNumber].id // scelgo una canzone random della lista e ne prendo l'id
                     let nomecanzoneRandom = result.tracks[randomNumber].name // nome della canzone random
+                    let artistacanzoneRandom = result.tracks[randomNumber].artists[0].name
 
                     $.ajax({ // chiamata ajax al click del bottone per prendere l'id del dispositivo connesso a spotify
                         url: "https://api.spotify.com/v1/me/player/devices",
@@ -65,17 +78,12 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                                             console.log(playerState)
                                             $( // se è in play
                                                 [
-                                                    '<h5 class="playing-track">"' + nomecanzoneRandom + '"</h5>', //nome della canzone 
+                                                    '<h5 class="playing-track">"' + nomecanzoneRandom + '" - ' + artistacanzoneRandom + '</h5>', //nome della canzone 
                                                     '<i class="material-icons emojify-playicon">pause_circle_outline</i>' //icona di play
                                                 ].join("\n")
                                             ).appendTo($("#alert-box")); //faccio l'append del nome della canzone in play
                                             $(".emojify-circle-musicloop").css("animation", "5s grow infinite"); //se parte la riproduzione della canzone aggiungo l'animaizone ai cerchi in background
                                             $(".emojify-bg-musicloop").css("opacity", "1"); //se parte la riproduzione della canzone faccio una transizione per l'apparizione dei cerchi
-                                            if (!results.is_playing) { // se è in pausa
-                                                $(".playing-track").remove();
-                                                $(".emojify-circle-musicloop").css("animation", ""); //se è in pausa rimuovo css dei cerchi
-                                                $(".emojify-bg-musicloop").css("opacity", "");
-                                            }
                                         }
                                     })
                                 },
