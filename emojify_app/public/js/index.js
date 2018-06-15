@@ -49,17 +49,40 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                                     Authorization: "Bearer " + access_token
                                 },
                                 success: function (result) { // se la richeista va a buon fine esegui la funzione
-                                    $(".device-error").remove(); //rimuovo l'alert in caso di errore precedente
+                                    $(".device-error").remove(); //rimuovo l'alert per evitare l'accumulo in caso di numerosi click
                                     $(".playing-track").remove(); //rimuovo il nome della traccia precedente per evitare l'accumulo
+                                    $(".login-error").remove(); //rimuovo l'alert per evitare l'accumulo in caso di numerosi click
+                                    $(".emojify-playicon").remove(); //rimuovo l'icona di play per evitare l'accumulo in caso di numerosi click
                                     console.log("traccia in play: ", nomecanzoneRandom)
-                                    $(
-                                        [
-                                            '<h5 class="playing-track">"' + nomecanzoneRandom + '"</h5>'
-                                        ].join("\n")
-                                    ).appendTo($("#alert-box")); //faccio l'append del nome della canzone in play
+                                    $.ajax({ // chiamata ajax per verificare lo stato del player dell'utente
+                                        url: "https://api.spotify.com/v1/me/player",
+                                        dataType: "json",
+                                        headers: {
+                                            Authorization: "Bearer " + access_token // access token dell'utente
+                                        },
+                                        success: function (results) {
+                                            playerState = results.is_playing
+                                            console.log(playerState)
+                                            $( // se è in play
+                                                [
+                                                    '<h5 class="playing-track">"' + nomecanzoneRandom + '"</h5>', //nome della canzone 
+                                                    '<i class="material-icons emojify-playicon">pause_circle_outline</i>' //icona di play
+                                                ].join("\n")
+                                            ).appendTo($("#alert-box")); //faccio l'append del nome della canzone in play
+                                            $(".emojify-circle-musicloop").css("animation", "5s grow infinite"); //se parte la riproduzione della canzone aggiungo l'animaizone ai cerchi in background
+                                            $(".emojify-bg-musicloop").css("opacity", "1"); //se parte la riproduzione della canzone faccio una transizione per l'apparizione dei cerchi
+                                            if (!results.is_playing) { // se è in pausa
+                                                $(".playing-track").remove();
+                                                $(".emojify-circle-musicloop").css("animation", ""); //se è in pausa rimuovo css dei cerchi
+                                                $(".emojify-bg-musicloop").css("opacity", "");
+                                            }
+                                        }
+                                    })
                                 },
                                 error: function () { //se non ci sono dispositivi in play
                                     $(".device-error").remove(); //rimuovo l'alert per evitare l'accumulo in caso di numerosi click
+                                    $(".playing-track").remove(); //rimuovo il nome della traccia precedente per evitare l'accumulo
+                                    $(".login-error").remove(); //rimuovo l'alert per evitare l'accumulo in caso di numerosi click
                                     let deviceErrorSource = document.getElementById("device-error").innerHTML;
                                     let deviceErrorAlert = Handlebars.compile(deviceErrorSource); //compilo handlebars
                                     $("#alert-box").append(deviceErrorAlert); //appendo all'html l'alert "Please make sure that you are running Spotify in the background!"
@@ -67,14 +90,59 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                             });
                         },
                     });
+                },
+                error: function () { //se l'utente non è loggato manda messaggio di errore
+                    $(".device-error").remove(); //rimuovo l'alert per evitare l'accumulo in caso di numerosi click
+                    $(".playing-track").remove(); //rimuovo il nome della traccia precedente per evitare l'accumulo
+                    $(".login-error").remove(); //rimuovo l'alert per evitare l'accumulo in caso di numerosi click
+                    let loginErrorSource = document.getElementById("login-error").innerHTML;
+                    let loginErrorAlert = Handlebars.compile(loginErrorSource); //compilo handlebars
+                    $("#alert-box").append(loginErrorAlert); //appendo all'html l'alert "Please make sure that you are login with Spotify!"
                 }
             });
         })
     })
 
-    // carosello bootstrap settaggi
-    $('.carousel').carousel({
-        interval: 4000,
-        pause: false
+    // controllo riproduzione al click sull'icona di play/pause
+    $("#alert-box").click(function () {
+        $.ajax({ // chiamata ajax per verificare lo stato del player dell'utente
+            url: "https://api.spotify.com/v1/me/player",
+            dataType: "json",
+            headers: {
+                Authorization: "Bearer " + access_token // access token dell'utente
+            },
+            success: function (results) {
+                playerState = results.is_playing
+                console.log(playerState)
+                if (playerState) {
+                    $(".emojify-playicon").replaceWith('<i class="material-icons emojify-playicon">play_circle_outline</i>');
+                    $.ajax({ // chiamata ajax che mette in pausa il player
+                        url: "https://api.spotify.com/v1/me/player/pause",
+                        type: 'PUT',
+                        headers: {
+                            Authorization: "Bearer " + access_token
+                        },
+                        success: function () {
+                            console.log("pause")
+                            $(".emojify-bg-musicloop").css("opacity", "0"); // rimuovo il loop dei cerchi in bg
+                        }
+                    })
+                } else {
+                    $(".emojify-playicon").replaceWith('<i class="material-icons emojify-playicon">pause_circle_outline</i>');
+                    $.ajax({ // chiamata ajax che mette in pausa il player
+                        url: "https://api.spotify.com/v1/me/player/play",
+                        type: 'PUT',
+                        headers: {
+                            Authorization: "Bearer " + access_token
+                        },
+                        success: function () {
+                            console.log("play")
+                            $(".emojify-circle-musicloop").css("animation", "5s grow infinite"); //se parte la riproduzione della canzone aggiungo l'animaizone ai cerchi in background
+                            $(".emojify-bg-musicloop").css("opacity", "1"); //se parte la riproduzione della canzone faccio una transizione per l'apparizione dei cerchi
+                        }
+                    })
+                }
+            }
+        })
     })
 });

@@ -14,6 +14,8 @@
     crossorigin="anonymous"></script>
   <!--emojione-->
   <link rel="stylesheet" href="scss/emojione-awesome.css">
+  <!--material icons-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--handlebars-->
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
   <!--font Roboto-->
@@ -34,11 +36,15 @@
 
   <!--body-->
   <div class="container-fluid emojify-bodycontainer d-flex flex-column">
-    <div class="background">
+    <div class="emojify-bg-circle">
       <div class="bg-circle-1 bg-circle"></div>
       <div class="bg-circle-2 bg-circle"></div>
       <div class="bg-circle-3 bg-circle"></div>
       <div class="bg-circle-4 bg-circle"></div>
+    </div>
+    <div class="emojify-bg-musicloop">
+      <span class="emojify-circle-musicloop c-100"> </span>
+      <span class="emojify-circle-musicloop c-90"> </span>
     </div>
     <div class="alert-box" id="alert-box"></div>
     <div class="row align-items-center emojify-row-grow">
@@ -70,7 +76,10 @@
   </div>
 
   <script id="device-error" type="text/x-handlebars-template">
-    <h5 class="device-error">Please make sure that you are running Spotify in the background!</h5>
+    <h5 class="device-error">Please make sure that you are running Spotify in the background and refresh the page!</h5>
+  </script>
+  <script id="login-error" type="text/x-handlebars-template">
+    <h5 class="login-error">Please make sure that you are login with Spotify!</h5>
   </script>
 </body>
 

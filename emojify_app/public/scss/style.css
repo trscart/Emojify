@@ -33,6 +33,17 @@
 }
 
 /*body*/
+@keyframes grow {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
 .emojify-bodycontainer {
   height: 100vh;
   background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);
@@ -73,6 +84,39 @@
   right: 35%;
 }
 
+.emojify-bodycontainer .emojify-bg-musicloop {
+  width: 100%;
+  height: 100%;
+  top: 54%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 0;
+  position: fixed;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.emojify-bodycontainer .emojify-bg-musicloop .emojify-circle-musicloop {
+  background-color: rgba(255, 255, 255, 0.2);
+  display: block;
+  z-index: -1000;
+  position: absolute;
+  border-radius: 100%;
+}
+
+.emojify-bodycontainer .emojify-bg-musicloop .c-100 {
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+.emojify-bodycontainer .emojify-bg-musicloop .c-90 {
+  width: 90%;
+  padding-bottom: 90%;
+}
+
 .emojify-bodycontainer .alert-box {
   color: white;
   position: absolute;
@@ -82,8 +126,8 @@
   text-align: center;
 }
 
-.emojify-bodycontainer .alert-box .emojify-musicnote {
-  margin: 0;
+.emojify-bodycontainer .alert-box .emojify-playicon {
+  cursor: pointer;
 }
 
 .emojify-bodycontainer .emojify-row-grow {
