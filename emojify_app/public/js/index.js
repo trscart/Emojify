@@ -49,10 +49,23 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                                     Authorization: "Bearer " + access_token
                                 },
                                 success: function (result) { // se la richeista va a buon fine esegui la funzione
+                                    $(".device-error").remove(); //rimuovo l'alert in caso di errore precedente
+                                    $(".playing-track").remove(); //rimuovo il nome della traccia precedente per evitare l'accumulo
                                     console.log("traccia in play: ", nomecanzoneRandom)
+                                    $(
+                                        [
+                                            '<h5 class="playing-track">"' + nomecanzoneRandom + '"</h5>'
+                                        ].join("\n")
+                                    ).appendTo($("#alert-box")); //faccio l'append del nome della canzone in play
+                                },
+                                error: function () { //se non ci sono dispositivi in play
+                                    $(".device-error").remove(); //rimuovo l'alert per evitare l'accumulo in caso di numerosi click
+                                    let deviceErrorSource = document.getElementById("device-error").innerHTML;
+                                    let deviceErrorAlert = Handlebars.compile(deviceErrorSource); //compilo handlebars
+                                    $("#alert-box").append(deviceErrorAlert); //appendo all'html l'alert "Please make sure that you are running Spotify in the background!"
                                 }
                             });
-                        }
+                        },
                     });
                 }
             });

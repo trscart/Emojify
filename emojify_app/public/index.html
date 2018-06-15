@@ -6,12 +6,14 @@
   <!--bootstrapCDN e jQuery-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <!--emojione-->
+  <link rel="stylesheet" href="scss/emojione-awesome.css">
   <!--handlebars-->
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
   <!--font Roboto-->
@@ -24,42 +26,52 @@
 
 <body>
 
+  <!--nav-->
   <nav class="navbar fixed-top navbar-light bg-light justify-content-between emojify-nav">
-    <a class="navbar-brand emojify-nav-brand">EMOJIFY</a>
+    <a class="navbar-brand emojify-nav-brand" href="#">EMOJIFY</a>
     <a class="nav-link emojify-nav-item" href="#">ABOUT</a>
   </nav>
 
-  <div class="container-fluid emojify-bodycontainer">
-    <div class="row">
-      <div id="carouselExampleSlidesOnly" class="carousel slide emojify-carousel" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="img/happy.jpg" alt="First slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="img/romance.jpg" alt="Second slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="img/sad.jpg" alt="Third slide">
-          </div>
+  <!--body-->
+  <div class="container-fluid emojify-bodycontainer d-flex flex-column">
+    <div class="background">
+      <div class="bg-circle-1 bg-circle"></div>
+      <div class="bg-circle-2 bg-circle"></div>
+      <div class="bg-circle-3 bg-circle"></div>
+      <div class="bg-circle-4 bg-circle"></div>
+    </div>
+    <div class="alert-box" id="alert-box"></div>
+    <div class="row align-items-center emojify-row-grow">
+      <div class="col d-flex flex-column align-items-center login">
+        <h1>Music for Every Emoji</h1>
+        <a href="/login" class="btn btn-primary emojify-login">Login with Spotify</a>
+      </div>
+    </div>
+    <div class="row emojify-list">
+      <div class="col d-flex flex-column align-items-center">
+        <div id="happy" value="happy" class="emojify-list-item">
+          <span class="e1a-grin e1a-lg">
+          </span>
         </div>
       </div>
-      <!--<ul>
-        <li id="happy" value="happy">happy</li>
-        <li id="sad" value="sad">sad</li>
-        <li id="romance" value="romance">love</li>
-      </ul>-->
-      <div class="login">
-        <h1>Music for Every Emoji</h1>
-        <a href="/login" class="btn btn-primary">Log in with Spotify</a>
+      <div class="col d-flex flex-column align-items-center">
+        <div id="sad" value="sad" class="emojify-list-item">
+          <span class="e1a-pensive e1a-lg">
+          </span>
+        </div>
+      </div>
+      <div class="col d-flex flex-column align-items-center">
+        <div id="romance" value="romance" class="emojify-list-item">
+          <span class="e1a-heart_eyes e1a-lg">
+          </span>
+        </div>
       </div>
     </div>
   </div>
 
-
-
-
-
+  <script id="device-error" type="text/x-handlebars-template">
+    <h5 class="device-error">Please make sure that you are running Spotify in the background!</h5>
+  </script>
 </body>
 
 </html>

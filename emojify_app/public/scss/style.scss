@@ -1,39 +1,102 @@
-*{
+* {
     font-family: 'Roboto', sans-serif;
 }
 
 /*nav*/
-.emojify-nav{
+
+.emojify-nav {
     padding: 5px 30px;
     background-color: transparent !important;
     color: white;
-    .emojify-nav-item{
+    .emojify-nav-item {
         font-weight: 800;
         font-size: 15px;
+        color: white;
+        padding: 0;
+        letter-spacing: 2px;
+        &:hover {
+            border-bottom: 2px solid white
+        }
     }
-    .emojify-nav-brand{
+    .emojify-nav-brand {
         font-weight: 800;
         font-size: 23px;
+        color: white;
+        letter-spacing: 2px;
+        &:hover {
+            color: white;
+        }
     }
 }
 
 /*body*/
-.emojify-bodycontainer{
+
+.emojify-bodycontainer {
     height: 100vh;
-    background: linear-gradient( rgba(0,0,0,0.2), rgba(0, 0, 0, 0.2) );
-    .emojify-carousel{
+    background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);
+    .bg-circle {
+        z-index: 0;
         position: fixed;
-        height: 100vh;
-        z-index: -1;
+        border-radius: 100%;
+        background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);
     }
-    .login{
-        top: 50%;
+    .bg-circle-1 {
+        height: 90rem;
+        width: 90rem;
+        bottom: -55rem;
+        left: -55rem;
+    }
+    .bg-circle-2 {
+        height: 50rem;
+        width: 50rem;
+        top: -25rem;
+        right: -25rem;
+    }
+    .bg-circle-3 {
+        height: 20rem;
+        width: 20rem;
+        bottom: -10rem;
+        right: 5%;
+    }
+    .bg-circle-4 {
+        height: 30rem;
+        width: 30rem;
+        top: -5rem;
+        right: 35%;
+    }
+    .alert-box{
+        color: white;
         position: absolute;
+        bottom: 20%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         text-align: center;
-        h1{
+        .emojify-musicnote{
+            margin: 0;
+        }
+    }
+    .emojify-row-grow {
+        flex-grow: 1;
+        .emojify-login {
+            background-color: #1DB954;
+            border-radius: 5rem;
+            padding: 15px 20px;
+            border: 0;
+            &:hover {
+                background-color: darken(#1DB954, 5%);
+            }
+        }
+        h1 {
             color: white;
         }
+    }
+}
+
+.emojify-list {
+    z-index: 1;
+    padding: 0px;
+    background: rgba($color: #ffffff, $alpha: 0.35);
+    .emojify-list-item {
+        cursor: pointer;
     }
 }
