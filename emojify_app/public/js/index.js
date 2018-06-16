@@ -75,7 +75,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                                         },
                                         success: function (results) {
                                             playerState = results.is_playing
-                                            console.log(playerState)
+                                            // console.log(playerState)
                                             $( // se è in play
                                                 [
                                                     '<h5 class="playing-track">"' + nomecanzoneRandom + '" - ' + artistacanzoneRandom + '</h5>', //nome della canzone 
@@ -84,7 +84,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                                             ).appendTo($("#alert-box")); //faccio l'append
                                             $(".emojify-circle-musicloop").css("animation", "5s grow infinite"); //se parte la riproduzione della canzone aggiungo l'animaizone ai cerchi in background
                                             $(".emojify-bg-musicloop").css("opacity", "1"); //se parte la riproduzione della canzone faccio una transizione per l'apparizione dei cerchi
-                                            $(".emojify-list").css("bottom", "-95px") //nascondo la barra delle emoji dopo il primo click
+                                            $('#music_toggle').addClass('on'); // attiva le music bar
                                         }
                                     })
                                 },
@@ -124,6 +124,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                 playerState = results.is_playing
                 console.log(playerState)
                 if (playerState) {
+                    $('#music_toggle').removeClass('on'); // disattiva le music bar
                     $(".emojify-playicon").replaceWith('<i class="material-icons emojify-playicon">play_circle_outline</i>');
                     $.ajax({ // chiamata ajax che mette in pausa il player
                         url: "https://api.spotify.com/v1/me/player/pause",
@@ -137,6 +138,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                         }
                     })
                 } else {
+                    $('#music_toggle').addClass('on'); // attiva le music bar
                     $(".emojify-playicon").replaceWith('<i class="material-icons emojify-playicon">pause_circle_outline</i>');
                     $.ajax({ // chiamata ajax che mette in pausa il player
                         url: "https://api.spotify.com/v1/me/player/play",
@@ -154,4 +156,39 @@ $(document).ready(function () { //aspetto che il documento sia pronto
             }
         })
     })
+
+    /*music bar control*/
+    $('#music_toggle').click(function () { // verifico lo stato del volume al click sulle music bar, se è > 0 lo setto a 80 sennò viceversa e faccio il toogle dell'animazione delle barre
+        $.ajax({ // chiamata ajax per verificare il volume
+            url: "https://api.spotify.com/v1/me/player",
+            dataType: "json",
+            headers: {
+                Authorization: "Bearer " + access_token // access token dell'utente
+            },
+            success: function (results) {
+                let volume = results.device.volume_percent
+                if (volume > 0) {
+                    $('#music_toggle').removeClass('on'); // disattiva le music bar
+                    $.ajax({ // chiamata ajax per verificare il volume
+                        url: "https://api.spotify.com/v1/me/player/volume?volume_percent=0", //setto il volume a 0
+                        type: 'PUT',
+                        dataType: "json",
+                        headers: {
+                            Authorization: "Bearer " + access_token // access token dell'utente
+                        }
+                    })
+                } else if (volume == 0) {
+                    $('#music_toggle').addClass('on'); // attiva le music bar
+                    $.ajax({ // chiamata ajax per verificare il volume
+                        url: "https://api.spotify.com/v1/me/player/volume?volume_percent=80", //setto il volume a 80
+                        type: 'PUT',
+                        dataType: "json",
+                        headers: {
+                            Authorization: "Bearer " + access_token // access token dell'utente
+                        }
+                    })
+                }
+            }
+        })
+    });
 });
