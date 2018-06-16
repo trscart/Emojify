@@ -34,19 +34,23 @@
     <a class="nav-link emojify-nav-item" href="#">ABOUT</a>
   </nav>
 
-  <!--body-->
+  <!--main-->
   <div class="container-fluid emojify-bodycontainer d-flex flex-column">
+    <!--background circle-->
     <div class="emojify-bg-circle">
       <div class="bg-circle-1 bg-circle"></div>
       <div class="bg-circle-2 bg-circle"></div>
       <div class="bg-circle-3 bg-circle"></div>
       <div class="bg-circle-4 bg-circle"></div>
     </div>
+    <!--background music loop-->
     <div class="emojify-bg-musicloop">
       <span class="emojify-circle-musicloop c-100"> </span>
       <span class="emojify-circle-musicloop c-90"> </span>
     </div>
+    <!--alert-box for errors and tracks name-->
     <div class="alert-box" id="alert-box"></div>
+    <!--login btn and description-->
     <div class="row align-items-center emojify-row-grow">
       <div class="col d-flex flex-column align-items-center login">
         <h1>"Music for every Emoji"</h1>
@@ -54,6 +58,7 @@
         <a href="/login" class="btn btn-primary emojify-login m-2">Login with Spotify</a>
       </div>
     </div>
+    <!--music bar-->
     <a title="Toggle Music" id="music_toggle" class="">
       <div>
         <span class="emojify-music-bar"></span>
@@ -63,6 +68,7 @@
         <span class="emojify-music-bar"></span>
       </div>
     </a>
+    <!--emoji row-->
     <div class="row emojify-list">
       <div class="col d-flex flex-column align-items-center">
         <div id="happy" value="happy" class="emojify-list-item">
@@ -85,6 +91,7 @@
     </div>
   </div>
 
+  <!--handlebars script error-->
   <script id="device-error" type="text/x-handlebars-template">
     <h5 class="device-error">Please make sure that you are running Spotify in the background and refresh the page!</h5>
   </script>

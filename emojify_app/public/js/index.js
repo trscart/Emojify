@@ -10,8 +10,8 @@ $(document).ready(function () { //aspetto che il documento sia pronto
         }
         return hashParams;
     }
-    var params = getHashParams();
-    var access_token = params.access_token,
+    let params = getHashParams();
+    let access_token = params.access_token,
         refresh_token = params.refresh_token,
         error = params.error;
 
