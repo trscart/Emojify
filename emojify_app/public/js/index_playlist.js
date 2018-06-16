@@ -31,6 +31,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
         $("#" + item).click(function () {
             console.log("mood: ", item)
             let limit = 100 //limite lista canzoni
+
             $.ajax({ // chiamata ajax che al click sulle emoji ritorna una lista di canzoni corrispondenti al mood della emoji stessa
                 url: "https://api.spotify.com/v1/recommendations?limit=" + limit + "&seed_genres=" + $("#" + item).attr("value"), // url + valore dell'emoji cliccata
                 type: 'GET',
@@ -39,10 +40,10 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                 },
                 success: function (result) { // se la richeista va a buon fine esegui la funzione
                     console.log(result)
-                    let randomNumber = Math.floor(Math.random() * limit); // genero un numero random da 0 a 50
-                    let canzoneRandomId = result.tracks[randomNumber].id // scelgo una canzone random della lista e ne prendo l'id
-                    let nomecanzoneRandom = result.tracks[randomNumber].name // nome della canzone random
-                    let artistacanzoneRandom = result.tracks[randomNumber].artists[0].name
+                    let tracksArray = result.tracks //array di tutte le tracce
+                    let tracksPlaylist = tracksArray.map(function (item, index, array) { //array con la lista di canzoni da riprodurre
+                        return '\"spotify:track:' + item.id + '\"'
+                    })
 
                     $.ajax({ // chiamata ajax al click del bottone per prendere l'id del dispositivo connesso a spotify
                         url: "https://api.spotify.com/v1/me/player/devices",
@@ -52,12 +53,13 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                         },
                         success: function (result) { // se la richeista va a buon fine esegui la funzione
                             console.log("device connessi: ", result)
+
                             $.ajax({ // chiamata ajax che riproduce al canzone random
                                 url: "https://api.spotify.com/v1/me/player/play",
                                 type: 'PUT',
                                 dataType: 'json',
                                 contentType: 'application/json',
-                                data: '{\"uris\":[\"spotify:track:' + canzoneRandomId + '\"]}',
+                                data: '{\"uris\":[' + tracksPlaylist + ']}',
                                 headers: {
                                     Authorization: "Bearer " + access_token
                                 },
@@ -66,7 +68,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                                     $(".playing-track").remove(); //rimuovo il nome della traccia precedente per evitare l'accumulo
                                     $(".login-error").remove(); //rimuovo l'alert per evitare l'accumulo in caso di numerosi click
                                     $(".emojify-playicon").remove(); //rimuovo l'icona di play per evitare l'accumulo in caso di numerosi click
-                                    console.log("traccia in play: ", nomecanzoneRandom)
+                                    //console.log("traccia in play: ", tracksName)
                                     $.ajax({ // chiamata ajax per verificare lo stato del player dell'utente
                                         url: "https://api.spotify.com/v1/me/player",
                                         dataType: "json",
@@ -76,15 +78,27 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                                         success: function (results) {
                                             playerState = results.is_playing
                                             console.log(playerState)
-                                            $( // se è in play
-                                                [
-                                                    '<h5 class="playing-track">"' + nomecanzoneRandom + '" - ' + artistacanzoneRandom + '</h5>', //nome della canzone 
-                                                    '<i class="material-icons emojify-playicon">pause_circle_outline</i>' //icona di play
-                                                ].join("\n")
-                                            ).appendTo($("#alert-box")); //faccio l'append
-                                            $(".emojify-circle-musicloop").css("animation", "5s grow infinite"); //se parte la riproduzione della canzone aggiungo l'animaizone ai cerchi in background
-                                            $(".emojify-bg-musicloop").css("opacity", "1"); //se parte la riproduzione della canzone faccio una transizione per l'apparizione dei cerchi
-                                            $(".emojify-list").css("bottom", "-95px") //nascondo la barra delle emoji dopo il primo click
+                                            $.ajax({ // chiamata ajax per verificare la canzone in riproduzione 
+                                                url: "https://api.spotify.com/v1/me/player",
+                                                dataType: "json",
+                                                headers: {
+                                                    Authorization: "Bearer " + access_token // access token dell'utente
+                                                },
+                                                success: function (results) {
+                                                    console.log(results)
+                                                    let trackName = results.item.name //nome della traccia
+                                                    let trackArtist = results.item.artists[0].name //nome dell'artista della traccia
+                                                    $(
+                                                        [
+                                                            '<h5 class="playing-track">"' + trackName + '" - ' + trackArtist + '</h5>', //nome della canzone 
+                                                            '<i class="material-icons emojify-playicon">pause_circle_outline</i>' //icona di play
+                                                        ].join("\n")
+                                                    ).appendTo($("#alert-box")); //faccio l'append
+                                                    $(".emojify-circle-musicloop").css("animation", "5s grow infinite"); //se parte la riproduzione della canzone aggiungo l'animaizone ai cerchi in background
+                                                    $(".emojify-bg-musicloop").css("opacity", "1"); //se parte la riproduzione della canzone faccio una transizione per l'apparizione dei cerchi
+                                                    $(".emojify-list").css("bottom", "-95px") //nascondo la barra delle emoji dopo il primo click
+                                                }
+                                            })
                                         }
                                     })
                                 },

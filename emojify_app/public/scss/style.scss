@@ -144,10 +144,9 @@
     padding: 0px;
     background: rgba($color: #ffffff, $alpha: 0.35);
     position: relative;
-    bottom: -95px;
     transition: 0.6s;
     &:hover{
-        bottom: 0;
+        bottom: 0 !important;
     }
     .emojify-list-item {
         cursor: pointer;
