@@ -36,6 +36,7 @@
 
   <!--main-->
   <div class="container-fluid emojify-bodycontainer d-flex flex-column">
+
     <!--background circle-->
     <div class="emojify-bg-circle">
       <div class="bg-circle-1 bg-circle"></div>
@@ -43,13 +44,16 @@
       <div class="bg-circle-3 bg-circle"></div>
       <div class="bg-circle-4 bg-circle"></div>
     </div>
+
     <!--background music loop-->
     <div class="emojify-bg-musicloop">
       <span class="emojify-circle-musicloop c-100"> </span>
       <span class="emojify-circle-musicloop c-90"> </span>
     </div>
+
     <!--alert-box for errors and tracks name-->
     <div class="alert-box" id="alert-box"></div>
+
     <!--login btn and description-->
     <div class="row align-items-center emojify-row-grow">
       <div class="col d-flex flex-column align-items-center login">
@@ -58,8 +62,9 @@
         <a href="/login" class="btn btn-primary emojify-login m-2">Login with Spotify</a>
       </div>
     </div>
+
     <!--music bar-->
-    <a title="Toggle Music" id="music_toggle" class="">
+    <a title="Volume Bars" id="music_toggle" class="">
       <div>
         <span class="emojify-music-bar"></span>
         <span class="emojify-music-bar"></span>
@@ -68,25 +73,74 @@
         <span class="emojify-music-bar"></span>
       </div>
     </a>
-    <!--emoji row-->
+
+    <!--emoji row desktop-->
     <div class="row emojify-list">
-      <div class="col d-flex flex-column align-items-center">
-        <div id="happy" value="happy" class="emojify-list-item">
+      <div class="col-md-4 col-sm-6 d-flex flex-column align-items-center">
+        <div value="happy" class="happy emojify-list-item" title="happy">
           <span class="e1a-grin e1a-lg">
           </span>
         </div>
       </div>
-      <div class="col d-flex flex-column align-items-center">
-        <div id="sad" value="sad" class="emojify-list-item">
+      <div class="col-md-4 col-sm-6 d-flex flex-column align-items-center">
+        <div value="sad" class="sad emojify-list-item" title="sad">
           <span class="e1a-pensive e1a-lg">
           </span>
         </div>
       </div>
-      <div class="col d-flex flex-column align-items-center">
-        <div id="romance" value="romance" class="emojify-list-item">
+      <div class="col-md-4 col-sm-6 d-flex flex-column align-items-center">
+        <div value="romance" class="romance emojify-list-item" title="in love">
           <span class="e1a-heart_eyes e1a-lg">
           </span>
         </div>
+      </div>
+    </div>
+
+    <!--emoji carousel mobile-->
+    <div class="row emojify-carousel-mobile">
+      <div id="carouselExampleControls" class="col carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="emojify-carousel-item">
+              <div id="happy" value="happy" class="happy carousel-emoji">
+                <span class="e1a-grin e1a-lg">
+                </span>
+              </div>
+              <div id="happy" value="happy" class="happy carousel-emoji">
+                <span class="e1a-grin e1a-lg">
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="emojify-carousel-item">
+              <div id="happy" value="happy" class="happy carousel-emoji">
+                <span class="e1a-grin e1a-lg">
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="emojify-carousel-item">
+              <div id="happy" value="happy" class="happy carousel-emoji">
+                <span class="e1a-grin e1a-lg">
+                </span>
+              </div>
+              <div id="happy" value="happy" class="happy carousel-emoji">
+                <span class="e1a-grin e1a-lg">
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
     </div>
   </div>

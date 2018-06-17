@@ -150,6 +150,7 @@
 }
 
 /*musicbar btn*/
+
 #music_toggle {
     width: 50px;
     height: 50px;
@@ -245,4 +246,49 @@
     -moz-animation: music-bar 2s 0.75s ease-out alternate infinite;
     -webkit-animation: music-bar 2s 0.75s ease-out alternate infinite;
     animation: music-bar 2s 0.75s ease-out alternate infinite;
+}
+
+/*carousel*/
+
+.emojify-carousel-mobile {
+    z-index: 1;
+    padding: 0px;
+    background: rgba($color: #ffffff, $alpha: 0.35);
+    display: none;
+    .emojify-carousel-item {
+        display: flex;
+        justify-content: space-around;
+        .carousel-emoji {
+            display: inline-block;
+            cursor: pointer;
+        }
+    }
+}
+
+/*media queries*/
+
+// Extra small devices (portrait phones, less than 576px)
+// Small devices (landscape phones, 576px)
+@media (max-width: 576px) {
+
+}
+
+// Medium devices (tablets, 768px)
+@media (max-width: 768px) {
+
+}
+
+// Large devices (desktops, 992px)
+@media (max-width: 992px) {
+    .emojify-carousel-mobile {
+        display: block;
+    }
+    .emojify-list {
+        display: none;
+    }
+}
+
+// Extra large devices (large desktops, 1200px)
+@media (max-width: 1200px) {
+
 }

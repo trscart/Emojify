@@ -28,7 +28,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
 
     let emojiMood = ["happy", "sad", "romance"] //creo un oggetto corrispondente al valore di ogni emoji
     emojiMood.forEach(function (item) {
-        $("#" + item).click(function () {
+        $("." + item).click(function () {
             console.log("mood: ", item)
             let limit = 100 //limite lista canzoni
             $.ajax({ // chiamata ajax che al click sulle emoji ritorna una lista di canzoni corrispondenti al mood della emoji stessa
@@ -79,7 +79,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                                             $( // se è in play
                                                 [
                                                     '<h5 class="playing-track">"' + nomecanzoneRandom + '" - ' + artistacanzoneRandom + '</h5>', //nome della canzone 
-                                                    '<i class="material-icons emojify-playicon">pause_circle_outline</i>' //icona di play
+                                                    '<i class="material-icons emojify-playicon" title="pause">pause_circle_outline</i>' //icona di play
                                                 ].join("\n")
                                             ).appendTo($("#alert-box")); //faccio l'append
                                             $(".emojify-circle-musicloop").css("animation", "5s grow infinite"); //se parte la riproduzione della canzone aggiungo l'animaizone ai cerchi in background
@@ -125,7 +125,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                 console.log(playerState)
                 if (playerState) {
                     $('#music_toggle').removeClass('on'); // disattiva le music bar
-                    $(".emojify-playicon").replaceWith('<i class="material-icons emojify-playicon">play_circle_outline</i>');
+                    $(".emojify-playicon").replaceWith('<i class="material-icons emojify-playicon" title="play">play_circle_outline</i>');
                     $.ajax({ // chiamata ajax che mette in pausa il player
                         url: "https://api.spotify.com/v1/me/player/pause",
                         type: 'PUT',
@@ -139,7 +139,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                     })
                 } else {
                     $('#music_toggle').addClass('on'); // attiva le music bar
-                    $(".emojify-playicon").replaceWith('<i class="material-icons emojify-playicon">pause_circle_outline</i>');
+                    $(".emojify-playicon").replaceWith('<i class="material-icons emojify-playicon" title="pause">pause_circle_outline</i>');
                     $.ajax({ // chiamata ajax che mette in pausa il player
                         url: "https://api.spotify.com/v1/me/player/play",
                         type: 'PUT',
@@ -191,4 +191,9 @@ $(document).ready(function () { //aspetto che il documento sia pronto
             }
         })
     });
+
+    /*controlli carosello*/
+    $('.carousel').carousel({
+        pause: false
+    })
 });
