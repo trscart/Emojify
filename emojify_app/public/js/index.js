@@ -1,6 +1,13 @@
 $(document).ready(function () { //aspetto che il documento sia pronto
     console.log("pagina pronta");
 
+    // loading-disappearance dopo 4,5s
+    setTimeout(function(){
+        $(".emojify-loading-container").css("opacity","0")
+        $(".emojify-loading-container").css("visibility","hidden")
+    }, 5500)
+
+
     function getHashParams() { // dichiaro una funzione che prenda i dati dall'url dopo il login dell'utente a spotify
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -26,18 +33,18 @@ $(document).ready(function () { //aspetto che il documento sia pronto
         }
     })
 
-    let emojiMood = ["happy", "sad", "romance"] //creo un oggetto corrispondente al valore di ogni emoji
+    let emojiMood = ["happy", "sad", "romance"] //creo un array corrispondente al valore di ogni emoji
     emojiMood.forEach(function (item) {
         $("." + item).click(function () {
             console.log("mood: ", item)
             let limit = 100 //limite lista canzoni
             $.ajax({ // chiamata ajax che al click sulle emoji ritorna una lista di canzoni corrispondenti al mood della emoji stessa
-                url: "https://api.spotify.com/v1/recommendations?limit=" + limit + "&seed_genres=" + $("#" + item).attr("value"), // url + valore dell'emoji cliccata
+                url: "https://api.spotify.com/v1/recommendations?limit=" + limit + "&seed_genres=" + $("." + item).attr("value"), // url + valore dell'emoji cliccata
                 type: 'GET',
                 headers: {
                     Authorization: "Bearer " + access_token
                 },
-                success: function (result) { // se la richeista va a buon fine esegui la funzione
+                success: function (result) { // se la richiesta va a buon fine esegui la funzione
                     console.log(result)
                     let randomNumber = Math.floor(Math.random() * limit); // genero un numero random da 0 a 50
                     let canzoneRandomId = result.tracks[randomNumber].id // scelgo una canzone random della lista e ne prendo l'id
@@ -85,6 +92,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                                             $(".emojify-circle-musicloop").css("animation", "5s grow infinite"); //se parte la riproduzione della canzone aggiungo l'animaizone ai cerchi in background
                                             $(".emojify-bg-musicloop").css("opacity", "1"); //se parte la riproduzione della canzone faccio una transizione per l'apparizione dei cerchi
                                             $('#music_toggle').addClass('on'); // attiva le music bar
+                                            $('.emojify-bodycontainer').css('animation', 'gradient-change 15s infinite'); // attiva background gradient animation
                                         }
                                     })
                                 },
