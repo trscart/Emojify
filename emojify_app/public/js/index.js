@@ -143,6 +143,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                         success: function () {
                             console.log("pause")
                             $(".emojify-bg-musicloop").css("opacity", "0"); // rimuovo il loop dei cerchi in bg
+                            $('.emojify-bodycontainer').css('animation', ''); // disattiva background gradient animation
                         }
                     })
                 } else {
@@ -158,6 +159,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
                             console.log("play")
                             $(".emojify-circle-musicloop").css("animation", "5s grow infinite"); //se parte la riproduzione della canzone aggiungo l'animaizone ai cerchi in background
                             $(".emojify-bg-musicloop").css("opacity", "1"); //se parte la riproduzione della canzone faccio una transizione per l'apparizione dei cerchi
+                            $('.emojify-bodycontainer').css('animation', 'gradient-change 15s infinite'); // attiva background gradient animation
                         }
                     })
                 }
