@@ -2,9 +2,9 @@ $(document).ready(function () { //aspetto che il documento sia pronto
     console.log("pagina pronta");
 
     // loading-disappearance dopo 4,5s
-    setTimeout(function(){
-        $(".emojify-loading-container").css("opacity","0")
-        $(".emojify-loading-container").css("visibility","hidden")
+    setTimeout(function () {
+        $(".emojify-loading-container").css("opacity", "0")
+        $(".emojify-loading-container").css("visibility", "hidden")
     }, 5500)
 
 
@@ -202,8 +202,40 @@ $(document).ready(function () { //aspetto che il documento sia pronto
         })
     });
 
-    /*controlli carosello*/
-    $('.carousel').carousel({
-        pause: false
-    })
+    /*slider*/
+    $('.emojify-slider').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+            // You can unslick at a given breakpoint now by adding:
+            // settings: "unslick"
+            // instead of a settings object
+        ]
+    });
 });

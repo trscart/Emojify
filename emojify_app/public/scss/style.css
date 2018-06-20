@@ -232,14 +232,30 @@
   font-weight: 400;
 }
 
-.emojify-list {
+.emojify-slider {
   z-index: 1;
   padding: 0px;
   background: rgba(255, 255, 255, 0.35);
   position: relative;
+  margin-bottom: 0px !important;
 }
 
-.emojify-list .emojify-list-item {
+.emojify-slider .slick-next {
+  right: 25px !important;
+  z-index: 2;
+}
+
+.emojify-slider .slick-prev {
+  left: 25px !important;
+  z-index: 2;
+}
+
+.emojify-slider .emojify-list-item {
+  text-align: center;
+  outline: none;
+}
+
+.emojify-slider .emojify-list-item span {
   cursor: pointer;
 }
 
@@ -339,24 +355,6 @@
   -moz-animation: music-bar 2s 0.75s ease-out alternate infinite;
   -webkit-animation: music-bar 2s 0.75s ease-out alternate infinite;
   animation: music-bar 2s 0.75s ease-out alternate infinite;
-}
-
-/*carousel*/
-.emojify-carousel-mobile {
-  z-index: 1;
-  padding: 0px;
-  background: rgba(255, 255, 255, 0.35);
-  display: none;
-}
-
-.emojify-carousel-mobile .emojify-carousel-item {
-  display: flex;
-  justify-content: space-around;
-}
-
-.emojify-carousel-mobile .emojify-carousel-item .carousel-emoji {
-  display: inline-block;
-  cursor: pointer;
 }
 
 /*media queries*/
