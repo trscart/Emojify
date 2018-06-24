@@ -358,12 +358,34 @@
 }
 
 /*media queries*/
-@media (max-width: 992px) {
-  .emojify-carousel-mobile {
-    display: block;
+@media (max-width: 576px) {
+  /*loading*/
+  .emojify-loading-sprite {
+    transform: scale(0.8);
   }
-  .emojify-list {
-    display: none;
+  .emojify-loading-txt {
+    font-size: 25px;
+  }
+  /*errors*/
+  .login-error {
+    font-size: 15px;
+  }
+  .device-error {
+    font-size: 15px;
+  }
+  /*name track*/
+  .playing-track {
+    font-size: 15px;
+  }
+  /*login btn and description*/
+  .login h1 {
+    font-size: 28px;
+  }
+  .login h5 {
+    font-size: 15px;
+  }
+  .login a {
+    transform: scale(0.8);
   }
 }
 /*# sourceMappingURL=style.css.map */

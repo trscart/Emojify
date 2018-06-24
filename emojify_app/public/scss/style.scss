@@ -220,16 +220,16 @@
     background: rgba($color: #ffffff, $alpha: 0.35);
     position: relative;
     margin-bottom: 0px !important;
-    .slick-next{
+    .slick-next {
         right: 25px !important;
         z-index: 2;
     }
-    .slick-prev{
+    .slick-prev {
         left: 25px !important;
         z-index: 2;
     }
     .emojify-list-item {
-        span{
+        span {
             cursor: pointer;
         }
         text-align: center;
@@ -340,20 +340,44 @@
 
 // Extra small devices (portrait phones, less than 576px)
 // Small devices (landscape phones, 576px)
-@media (max-width: 576px) {}
+@media (max-width: 576px) {
+    /*loading*/
+    .emojify-loading-sprite {
+        transform: scale(0.8);
+    }
+    .emojify-loading-txt {
+        font-size: 25px;
+    }
+    /*errors*/
+    .login-error {
+        font-size: 15px;
+    }
+    .device-error {
+        font-size: 15px;
+    }
+    /*name track*/
+    .playing-track {
+        font-size: 15px;
+    }
+    /*login btn and description*/
+    .login {
+        h1 {
+            font-size: 28px;
+        }
+        h5 {
+            font-size: 15px;
+        }
+        a{
+            transform: scale(0.8);
+        }
+    }
+}
 
 // Medium devices (tablets, 768px)
 @media (max-width: 768px) {}
 
 // Large devices (desktops, 992px)
-@media (max-width: 992px) {
-    .emojify-carousel-mobile {
-        display: block;
-    }
-    .emojify-list {
-        display: none;
-    }
-}
+@media (max-width: 992px) {}
 
 // Extra large devices (large desktops, 1200px)
 @media (max-width: 1200px) {}

@@ -33,7 +33,7 @@ $(document).ready(function () { //aspetto che il documento sia pronto
         }
     })
 
-    let emojiMood = ["happy", "sad", "romance"] //creo un array corrispondente al valore di ogni emoji
+    let emojiMood = ["happy", "sad", "romance", "party", "rock", "work-out", "chill", "sleep"] //creo un array corrispondente al valore di ogni emoji
     emojiMood.forEach(function (item) {
         $("." + item).click(function () {
             console.log("mood: ", item)
